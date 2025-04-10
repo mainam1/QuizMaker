@@ -107,8 +107,7 @@
 
       <!-- Ajout de questions -->
       <div class="question-section">
-        <h3>Ajout de questions :</h3>
-        
+
         <div class="add-question-buttons">
           <button type="button" class="btn btn-primary" (click)="addQuestion('question directe')">+ Question directe</button>
           <button type="button" class="btn btn-primary" (click)="addQuestion('QCM')">+ QCM</button>
@@ -145,12 +144,6 @@
                 <input type="text" formControlName="answer" class="form-control">
               </div>
               
-              <div class="form-group">
-                <label>Taux de tolérance (%)</label>
-                <input type="number" formControlName="toleranceRate" class="form-control" min="0" max="100">
-                <small class="form-text text-muted">Pourcentage de tolérance pour les erreurs de frappe ou casse</small>
-              </div>
-            </div>
             
             <!-- Options spécifiques pour QCM -->
             <div *ngIf="question.get('type')?.value === 'QCM'" class="qcm-options">
@@ -165,6 +158,7 @@
               </div>
               
               <button type="button" class="btn btn-sm" (click)="addOption(i)">+ Ajouter une option</button>
+              
             </div>
             
             <!-- Paramètres communs pour toutes les questions -->
@@ -175,7 +169,7 @@
               </div>
               
               <div class="form-group">
-                <label>Durée (secondes)</label>
+                <label>Durée (minutes)</label>
                 <input type="number" formControlName="duration" class="form-control" min="1">
               </div>
             </div>
@@ -183,7 +177,7 @@
         </div>
         
         <div *ngIf="questions.length === 0" class="no-questions">
-          Aucune question ajoutée. Utilisez les boutons ci-dessus pour ajouter des questions.
+          Aucune question ajoutée.
         </div>
       </div>
       
