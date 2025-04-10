@@ -99,15 +99,45 @@
   </div>
    -->
   <!-- Fichier: exam-creation.component.html -->
+<!-- Fichier: exam-creation.component.html -->
 
 <div class="exam-creation-container">
-
+  <h2>3.3. <img src="assets/teacher-icon.png" alt="Icône enseignant" class="teacher-icon"> Espace enseignant</h2>
   
   <div class="panel">
+    <h3>Création d'examen :</h3>
+    
+    <form [formGroup]="examForm" (ngSubmit)="onSubmit()">
+      <!-- Informations générales de l'examen -->
+      <div class="exam-info">
+        <div class="form-group">
+          <label for="title">Titre</label>
+          <input type="text" id="title" formControlName="title" class="form-control">
+          <div *ngIf="examForm.get('title')?.invalid && examForm.get('title')?.touched" class="error-message">
+            Le titre est requis
+          </div>
+        </div>
+        
+        <div class="form-group">
+          <label for="description">Description</label>
+          <textarea id="description" formControlName="description" class="form-control"></textarea>
+        </div>
+        
 
+        
+        <div class="form-group">
+          <label>Lien unique d'accès</label>
+          <div class="unique-link">
+            <input type="text" [value]="uniqueLink" readonly class="form-control">
+            <button type="button" class="btn" (click)="generateUniqueLink()">Régénérer</button>
+          </div>
+        </div>
+      </div>
+      
       <!-- Ajout de questions -->
       <div class="question-section">
-
+        <h3>Ajout de questions :</h3>
+        
         <div class="add-question-buttons">
           <button type="button" class="btn btn-primary" (click)="addQuestion('question directe')">+ Question directe</button>
           <button type="button" class="btn btn-primary" (click)="addQuestion('QCM')">+ QCM</button>
@@ -115,7 +145,7 @@
         
         <!-- Liste des questions -->
         <div formArrayName="questions">
-          <div *ngFor="let question of questions.controls; let i = index" class="question-card">
+          <div *ngFor="let question of questions.controls; let i = index" class="question-card" [formGroupName]="i">
             <div class="question-header">
               <h4>Question {{i + 1}} - {{question.get('type')?.value}}</h4>
               <button type="button" class="btn-close" (click)="removeQuestion(i)" title="Supprimer cette question"></button>
@@ -143,22 +173,22 @@
                 <label>Réponse attendue</label>
                 <input type="text" formControlName="answer" class="form-control">
               </div>
-              
+
+            </div>
             
             <!-- Options spécifiques pour QCM -->
             <div *ngIf="question.get('type')?.value === 'QCM'" class="qcm-options">
               <label>Options</label>
               
               <div formArrayName="options">
-             
+                <div *ngFor="let option of getOptionsFromQuestion(i).controls; let j = index" [formGroupName]="j" class="option-row">
                   <input type="checkbox" formControlName="isCorrect">
-                  <input type="text" formControlName="text" class="form-control" placeholder="Texte de l'option">
-                  <button type="button" class="btn-close" *ngIf="getOptionsFromQuestion(i).length > 2"></button>
+                  <input type="text" formControlName="text" class="form-control" placeholder="Option {{j + 1}}">
+                  <button type="button" class="btn-close" (click)="removeOption(i, j)" *ngIf="getOptionsFromQuestion(i).length > 2"></button>
                 </div>
               </div>
               
               <button type="button" class="btn btn-sm" (click)="addOption(i)">+ Ajouter une option</button>
-              
             </div>
             
             <!-- Paramètres communs pour toutes les questions -->
@@ -177,7 +207,7 @@
         </div>
         
         <div *ngIf="questions.length === 0" class="no-questions">
-          Aucune question ajoutée.
+          Aucune question ajoutée. Utilisez les boutons ci-dessus pour ajouter des questions.
         </div>
       </div>
       
@@ -186,5 +216,6 @@
         <button type="button" class="btn btn-secondary">Annuler</button>
         <button type="submit" class="btn btn-success">Créer l'examen</button>
       </div>
-
+    </form>
+  </div>
 </div>

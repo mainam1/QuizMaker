@@ -21,11 +21,21 @@
         <textarea id="description" formControlName="description" placeholder="Enter quiz description"></textarea>
       </div>
 
+
+      <div class="form-group">
+        <label>Lien unique d'accès</label>
+        <div class="unique-link">
+          <input type="text" [value]="uniqueLink" readonly class="form-control">
+          <button type="button" class="btn" (click)="generateUniqueLink()">Régénérer</button>
+        </div>
+      </div>
+
       <div class="indicator">
         <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Space+Mono|Muli">
         <span class="required">* :</span> Required fields
 
       </div>
+      
       <button type="button" class="create-quiz-btn" (click)="create()" >Create Quiz
       </button>
 

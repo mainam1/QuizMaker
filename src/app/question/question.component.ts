@@ -16,7 +16,7 @@ interface Option {
 }
 import { NgFor, NgIf } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, FormArray, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, FormArray, Validators, ReactiveFormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 import { RouterOutlet } from '@angular/router';
 import { QuestionService } from './question.service';
@@ -26,7 +26,7 @@ import { NgbActiveModal, NgbModalModule } from '@ng-bootstrap/ng-bootstrap';
 @Component({
   selector: 'app-question',
   standalone: true,
-  imports: [RouterOutlet,NgIf,NgFor,CommonModule],
+  imports: [RouterOutlet,NgIf,NgFor,CommonModule,ReactiveFormsModule],
   templateUrl: './question.component.html',
   styleUrl: './question.component.css',
   providers: [NgbActiveModal] 

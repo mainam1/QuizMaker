@@ -13,6 +13,7 @@ import { Router , RouterOutlet} from '@angular/router';
 })
 export class MakequizComponent {
   makequizForm: FormGroup;
+  uniqueLink: string = '';
   constructor(private fb: FormBuilder , private router: Router) {
     this.makequizForm = this.fb.group({
       title: ['', [Validators.required]],
@@ -34,5 +35,15 @@ export class MakequizComponent {
 
   cancel(): void {
     this.router.navigate(['/home']);
+  }
+
+  generateUniqueLink(): void {
+    const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+    let result = '';
+    const charactersLength = characters.length;
+    for (let i = 0; i < 10; i++) {
+      result += characters.charAt(Math.floor(Math.random() * charactersLength));
+    }
+    this.uniqueLink = `https://examen.example.com/${result}`;
   }
 }
