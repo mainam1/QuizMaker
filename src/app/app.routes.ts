@@ -11,6 +11,7 @@ import { HomeComponent } from './home/home.component';
 import { MakequizComponent } from './makequiz/makequiz.component';
 import { FooterComponent } from './shared/footer/footer.component';
 import { NavbarComponent } from './shared/navbar/navbar.component';
+import { QuestionComponent } from './question/question.component';
 export const routes: Routes = [
 
     { path: '', redirectTo: 'home', pathMatch: 'full' },
@@ -20,9 +21,10 @@ export const routes: Routes = [
   { path: 'signup', component: SignupComponent },
   {path: "creator",component:CreatorComponent},
   {path: "exam",component:ExamComponent},
-  {path: '**', redirectTo: 'home' } ,
+
   {path: 'navbar', component: NavbarComponent}, 
   {path: 'footer', component: FooterComponent},
+  {path: 'question', component: QuestionComponent},
 ];
 @NgModule({
  

@@ -22,7 +22,9 @@ export class HomeComponent {
     selectedItem: any = null;
   
   constructor(private router: Router) {}
-  
+
+
+
   selectItem(item: any): void {
     this.selectedItem = item;
   }

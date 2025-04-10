@@ -12,7 +12,7 @@
       <div class="form-group">
         <label for="duration"> Duration: <span class="required">*</span>
         </label>
-        <input time="number" id="duration" formControlName="duration" placeholder="Enter quiz duration in minutes">
+        <input type="number" id="duration" formControlName="duration" placeholder="Enter quiz duration in minutes"  min="1" value="1">
 
       </div>
 
@@ -26,10 +26,10 @@
         <span class="required">* :</span> Required fields
 
       </div>
-      <button type="button" class="create-quiz-btn"> Create Quiz
+      <button type="button" class="create-quiz-btn" (click)="create()" >Create Quiz
       </button>
 
-      <button type="button" class="cancel-quiz-btn"> Cancel
+      <button type="button" class="cancel-quiz-btn" (click)="cancel()" > Cancel
       </button>
     </form>
   </div>

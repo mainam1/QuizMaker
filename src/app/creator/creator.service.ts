@@ -1,16 +1,16 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable, signal } from '@angular/core';
 import { Creator } from './creator.model';
-import { HttpClientModule } from '@angular/common/http'; 
+import { QuestionService } from '../question/question.service';
 @Injectable({
   providedIn: 'root'
 })
 export class CreatorService {
-	
+	quizTitle = '';
 
 backEndURL="http://localhost:8080/creators"
 creators=signal<Creator[]>([])
-constructor(private http:HttpClient){
+constructor(private http:HttpClient ,private questionService: QuestionService){
 	this.getCreators()
 }
 getCreators():void{
@@ -54,4 +54,13 @@ this.http.put<Creator>(this.backEndURL,creator).subscribe(updatedCreator=>{
 })
 
 }
+saveQuiz() {
+    const quiz = {
+      title: this.quizTitle,
+      questions: this.questionService.getQuestions()
+    };
+    console.log('Quiz saved:', quiz);
+    alert('Quiz saved!');
+  }
 }
+
