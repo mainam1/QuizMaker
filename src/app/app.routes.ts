@@ -12,6 +12,8 @@ import { MakequizComponent } from './makequiz/makequiz.component';
 import { FooterComponent } from './shared/footer/footer.component';
 import { NavbarComponent } from './shared/navbar/navbar.component';
 import { QuestionComponent } from './question/question.component';
+import { ParticipantComponent } from './participant/participant.component';
+import { DashboardComponent } from './creator/dashboard/dashboard.component';
 export const routes: Routes = [
 
     { path: '', redirectTo: 'home', pathMatch: 'full' },
@@ -25,6 +27,8 @@ export const routes: Routes = [
   {path: 'navbar', component: NavbarComponent}, 
   {path: 'footer', component: FooterComponent},
   {path: 'question', component: QuestionComponent},
+  {path: 'participant', component: ParticipantComponent},
+  {path: 'creator/dashboard', component:DashboardComponent}
 ];
 @NgModule({
  

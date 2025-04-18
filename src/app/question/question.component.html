@@ -104,34 +104,12 @@
 <div class="exam-creation-container">
 
   <div class="panel">
-    <h3>Création d'examen :</h3>
     
-    <form [formGroup]="examForm" (ngSubmit)="onSubmit()">
+    
+    <form (ngSubmit)="onSubmit()">
       <!-- Informations générales de l'examen -->
-      <div class="exam-info">
-        <div class="form-group">
-          <label for="title">Titre</label>
-          <input type="text" id="title" formControlName="title" class="form-control">
-          <div *ngIf="examForm.get('title')?.invalid && examForm.get('title')?.touched" class="error-message">
-            Le titre est requis
-          </div>
-        </div>
-        
-        <div class="form-group">
-          <label for="description">Description</label>
-          <textarea id="description" formControlName="description" class="form-control"></textarea>
-        </div>
-        
-
-        
-        <div class="form-group">
-          <label>Lien unique d'accès</label>
-          <div class="unique-link">
-            <input type="text" [value]="uniqueLink" readonly class="form-control">
-            <button type="button" class="btn" (click)="generateUniqueLink()">Régénérer</button>
-          </div>
-        </div>
-      </div>
+    
+     
       
       <!-- Ajout de questions -->
       <div class="question-section">
@@ -198,7 +176,7 @@
               </div>
               
               <div class="form-group">
-                <label>Durée (minutes)</label>
+                <label>Durée (secondes)</label>
                 <input type="number" formControlName="duration" class="form-control" min="1">
               </div>
             </div>

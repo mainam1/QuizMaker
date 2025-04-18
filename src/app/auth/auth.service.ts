@@ -9,6 +9,8 @@ import { BehaviorSubject } from 'rxjs';
 export class AuthService {
   private isLoggedInSubject = new BehaviorSubject<boolean>(false);
   isLoggedIn$ = this.isLoggedInSubject.asObservable();
+  isceator: any;
+  currentUserValue: any;
 
   constructor(private http: HttpClient, private router: Router) {
     // Check if user is already logged in

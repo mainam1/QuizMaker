@@ -1,24 +1,25 @@
-import { Component } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { ExamComponent } from '../exam/exam.component';
+import { Component, OnInit } from '@angular/core';
 import { NgIf } from '@angular/common';
 import { Router , RouterOutlet} from '@angular/router';
-
+import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
+import { FormBuilder, FormGroup, FormArray, Validators, ReactiveFormsModule } from '@angular/forms';
 @Component({
   selector: 'app-makequiz',
   standalone: true,
-  imports: [NgIf,RouterOutlet],
+  imports: [NgIf,RouterOutlet,ReactiveFormsModule],
   templateUrl: './makequiz.component.html',
-  styleUrl: './makequiz.component.css'
+  styleUrl: './makequiz.component.css',
+  providers: [NgbActiveModal] 
 })
 export class MakequizComponent {
-  makequizForm: FormGroup;
+  makequizForm!: FormGroup;
   uniqueLink: string = '';
-  constructor(private fb: FormBuilder , private router: Router) {
+  constructor(private fb: FormBuilder , private router: Router ) {
     this.makequizForm = this.fb.group({
       title: ['', [Validators.required]],
       duration: ['', [Validators.required, Validators.min(0)]],
-      description: ['']
+      description: [''],
+      uniqueLink: ['']
     });
   }
 
@@ -29,12 +30,13 @@ export class MakequizComponent {
     }
   }
 
-  create(): void {
-    this.router.navigate(['/question']);
-  }
+  create() {
+this.router.navigate(['/question']);
+    } 
 
-  cancel(): void {
-    this.router.navigate(['/home']);
+
+  cancel() {
+    this.router.navigate(['/']);
   }
 
   generateUniqueLink(): void {

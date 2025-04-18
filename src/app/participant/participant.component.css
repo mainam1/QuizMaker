@@ -1,0 +1,57 @@
+/* student-space.component.css */
+.student-space-container {
+    font-family: Arial, sans-serif;
+    max-width: 800px;
+    margin: 20px auto;
+    padding: 20px;
+    border-radius: 8px;
+    background-color: #f9f9f9;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+  
+  .student-space-header {
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+    border-bottom: 1px solid #e0e0e0;
+    padding-bottom: 10px;
+  }
+  
+  .section-number {
+    font-weight: bold;
+    margin-right: 10px;
+    color: #333;
+  }
+  
+  .section-title {
+    font-weight: bold;
+    color: #333;
+    margin: 0;
+    display: flex;
+    align-items: center;
+  }
+  
+  .icon {
+    margin-right: 10px;
+    font-size: 1.2em;
+  }
+  
+  .instruction-list {
+    list-style-type: disc;
+    padding-left: 20px;
+  }
+  
+  .instruction-list li {
+    margin-bottom: 12px;
+    line-height: 1.5;
+  }
+  
+  /* Add emphasis to important terms */
+  .instruction-list li::marker {
+    color: #3b4da1;
+  }
+  
+  /* Add emphasis to key terms within text */
+  .instruction-list li strong {
+    font-weight: bold;
+  }

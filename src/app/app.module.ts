@@ -4,17 +4,17 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 import { AppComponent } from './app.component';
-import { QuestionComponent } from './question/question.component';
+import { CommonModule } from '@angular/common';
 
 @NgModule({
   declarations: [
-
-  ],
+],
   imports: [
     BrowserModule,
     ReactiveFormsModule,
     NgbModule,
-    AppComponent
+    AppComponent,
+    CommonModule
   ],
   providers: [],
   bootstrap: []

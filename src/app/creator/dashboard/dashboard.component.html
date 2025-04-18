@@ -1,0 +1,52 @@
+<div class="dashboard-container">
+    <header class="dashboard-header">
+      <div class="header-content">
+        <h1>Teacher Dashboard</h1>
+        <div class="user-controls">
+          <button class="logout-btn" (click)="logout()">Logout</button>
+        </div>
+      </div>
+    </header>
+  
+    <main class="dashboard-content">
+      <div class="exams-header">
+        <h2>My Exams</h2>
+        <button class="create-exam-btn" (click)="createExam()">
+          <span>Create New Exam</span>
+        </button>
+      </div>
+  
+      <div class="exams-list">
+        <ng-container *ngIf="(exams$ | async) as exams; else loading">
+          <div *ngIf="exams.length === 0" class="no-exams">
+            <p>You haven't created any exams yet. Click "Create New Exam" to get started.</p>
+          </div>
+  
+          <div *ngFor="let exam of exams" class="exam-card">
+            <div class="exam-info">
+              <h3>{{ exam.title }}</h3>
+              <p class="exam-description">{{ exam.description }}</p>
+              <p class="target-audience">For: {{ exam.targetAudience }}</p>
+              <p class="exam-link">
+                Access Link: <span class="link"></span>
+                <button class="copy-btn" (click)="copyLink(exam.accessLink)">Copy</button>
+              </p>
+              <p class="created-date">Created: {{ exam.createdAt | date }}</p>
+            </div>
+            
+            <div class="exam-actions">
+              <button class="view-btn" (click)="viewExam(exam)">View Details</button>
+              <button class="edit-btn" (click)="editExam(exam)">Edit</button>
+              <button class="delete-btn" (click)="deleteExam(exam)">Delete</button>
+            </div>
+          </div>
+        </ng-container>
+  
+        <ng-template #loading>
+          <div class="loading-exams">
+            <p>Loading exams...</p>
+          </div>
+        </ng-template>
+      </div>
+    </main>
+  </div>
