@@ -12,18 +12,18 @@ import { CommonModule, NgFor, NgIf } from '@angular/common';
   templateUrl: './dashboard.component.html',
   styleUrls: ['./dashboard.component.css'] 
 })
-export class DashboardComponent implements OnInit {
-  exams$: Observable<Exam[]>;
-  constructor(
+export class DashboardComponent{
+exams$!: Observable<Exam[]>;
+constructor(
     private authService: AuthService,
     private examService: ExamService,
     private router: Router
   ) {
-    this.exams$ = this.examService.getCreatorExams();
+
   }
 
   ngOnInit(): void {
-    if (!this.authService.isLoggedIn$ || !this.authService.isceator
+    if (!this.authService.isLoggedIn || !this.authService.isCreator
 
     ) {
       this.router.navigate(['/login']);
@@ -31,15 +31,7 @@ export class DashboardComponent implements OnInit {
   }
 
   createExam(): void {
-    this.router.navigate(['/ceator/create-exam']);
-  }
-
-  editExam(exam: Exam): void {
-    this.router.navigate(['/ceator/edit-exam', exam.id]);
-  }
-
-  viewExam(exam: Exam): void {
-    this.router.navigate(['/ceator/view-exam', exam.id]);
+    this.router.navigate(['/makequiz']);
   }
 
   deleteExam(exam: Exam): void {
@@ -60,4 +52,5 @@ export class DashboardComponent implements OnInit {
       console.error('Failed to copy link: ', err);
     });
   }
-}
+
+ }

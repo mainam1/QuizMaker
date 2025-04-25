@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable, signal } from '@angular/core';
 import { Creator } from './creator.model';
-import { QuestionService } from '../question/question.service';
+import { QuestionService } from '../makequiz/question/question.service';
 @Injectable({
   providedIn: 'root'
 })

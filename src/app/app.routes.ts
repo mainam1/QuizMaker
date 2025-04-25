@@ -11,7 +11,7 @@ import { HomeComponent } from './home/home.component';
 import { MakequizComponent } from './makequiz/makequiz.component';
 import { FooterComponent } from './shared/footer/footer.component';
 import { NavbarComponent } from './shared/navbar/navbar.component';
-import { QuestionComponent } from './question/question.component';
+import { QuestionComponent } from './makequiz/question/question.component';
 import { ParticipantComponent } from './participant/participant.component';
 import { DashboardComponent } from './creator/dashboard/dashboard.component';
 export const routes: Routes = [
@@ -26,7 +26,7 @@ export const routes: Routes = [
 
   {path: 'navbar', component: NavbarComponent}, 
   {path: 'footer', component: FooterComponent},
-  {path: 'question', component: QuestionComponent},
+  {path: 'makequiz/question', component: QuestionComponent},
   {path: 'participant', component: ParticipantComponent},
   {path: 'creator/dashboard', component:DashboardComponent}
 ];

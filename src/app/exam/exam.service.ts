@@ -11,7 +11,7 @@ exams=[
   getExams(){
     return this.exams;
   }
-}*/
+}
 // src/app/services/exam.service.ts
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
@@ -81,5 +81,56 @@ export class ExamService {
 
   deleteExam(id: string): Promise<void> {
     return this.firestore.doc<Exam>(`exams/${id}`).delete();
+  }
+}
+*/
+import { Injectable } from '@angular/core';
+import { AngularFirestore } from '@angular/fire/compat/firestore';
+import { Exam } from '../models/exam';
+
+@Injectable({ providedIn: 'root' })
+export class ExamService {
+  createQuiz(quiz: { title: string; questions: { text: string; type: string; answers: { text: string; isCorrect: boolean; }[]; }[]; }) {
+    throw new Error('Method not implemented.');
+  }
+  constructor(private firestore: AngularFirestore) {}
+
+  // Create a new exam with auto-generated ID
+  async createExam(examData: Exam): Promise<string> {
+    const docRef = await this.firestore.collection('exams').add(examData);
+    return docRef.id;
+  }
+
+  // Get exam by ID
+  getExam(examId: string) {
+    return this.firestore.doc(`exams/${examId}`).valueChanges();
+  }
+
+  // Get all exams for a specific creator
+  getExamsByCreator(userId: string) {
+    return this.firestore.collection('exams', ref => 
+      ref.where('createdBy', '==', userId)
+         .orderBy('createdAt', 'desc')
+    ).valueChanges();
+  }
+
+  // Update exam data
+  updateExam(examId: string, updates: Partial<Exam>) {
+    return this.firestore.doc(`exams/${examId}`).update(updates);
+  }
+
+  // Delete an exam
+  deleteExam(examId: string) {
+    return this.firestore.doc(`exams/${examId}`).delete();
+  }
+
+  // Generate a random access link
+  generateAccessCode(length = 10): string {
+    const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+    let result = '';
+    for (let i = 0; i < length; i++) {
+      result += chars.charAt(Math.floor(Math.random() * chars.length));
+    }
+    return result;
   }
 }

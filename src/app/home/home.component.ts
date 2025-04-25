@@ -8,7 +8,7 @@ import { MakequizComponent } from '../makequiz/makequiz.component';
   imports: [MakequizComponent, RouterOutlet],
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.css']
-})
+}) 
 export class HomeComponent {
 
   title = 'QuizMaker';
