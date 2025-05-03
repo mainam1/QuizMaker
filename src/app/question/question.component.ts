@@ -3,9 +3,13 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, FormArray, Validators } from '@angular/forms';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ReactiveFormsModule } from '@angular/forms';
+import { CommonModule } from '@angular/common';
 @Component({
   selector: 'app-question',
+  standalone: true,
   templateUrl: './question.component.html',
+  styleUrls: ['./question.component.css'],
+  imports: [CommonModule, ReactiveFormsModule],
   providers: [NgbModal, ReactiveFormsModule],
 })
 export class QuestionComponent implements OnInit {
@@ -19,7 +23,7 @@ export class QuestionComponent implements OnInit {
       });
     }
   ngOnInit(): void {
-    throw new Error('Method not implemented.');
+  
   }
   
     get questions() {
@@ -71,8 +75,8 @@ export class QuestionComponent implements OnInit {
   
     onSubmit() {
       if (this.examForm.valid) {
-        console.log('Exam submitted:', this.examForm.value);
-        // Add your submission logic here
+        console.log('Quiz submitted:', this.examForm.value);
+        
       }
     }
   }

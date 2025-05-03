@@ -26,14 +26,14 @@ export const routes: Routes = [
 
   {path: 'navbar', component: NavbarComponent}, 
   {path: 'footer', component: FooterComponent},
-  {path: 'makequiz/question', component: QuestionComponent},
+  {path: 'question', component: QuestionComponent},
   {path: 'participant', component: ParticipantComponent},
   {path: 'creator/dashboard', component:DashboardComponent}
 ];
 @NgModule({
  
     imports: [BrowserModule,
-        ReactiveFormsModule,RouterModule.forRoot(routes)],
+        ReactiveFormsModule ,RouterModule.forRoot(routes)],
     exports: [RouterModule]
   })
   export class AppRoutingModule { }
