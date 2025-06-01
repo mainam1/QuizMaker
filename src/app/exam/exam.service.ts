@@ -35,7 +35,7 @@ interface SubmissionResult {
   providedIn: 'root'
 })
 export class ExamService {
-  private apiUrl = 'http://localhost:5000/api/student';
+  private apiUrl = 'http://localhost:8080/exams';
 
   constructor(private http: HttpClient) { }
 
@@ -46,6 +46,10 @@ export class ExamService {
     return this.http.get<{ exam: ExamData, questions: Question[] }>(`${this.apiUrl}/exam/${examLink}`, { headers });
   }
 
+  getExamByLink(uniqueLink: string): Observable<any> {
+    return this.http.get(`${this.apiUrl}/link/${uniqueLink}`);
+  }
+  
   submitExam(examId: string, answers: Answer[], location: any, token: string): Observable<SubmissionResult> {
     const headers = new HttpHeaders({
       'Authorization': `Bearer ${token}`,

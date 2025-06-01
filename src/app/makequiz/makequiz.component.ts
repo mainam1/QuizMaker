@@ -21,6 +21,8 @@ export class MakequizComponent {
   makequizForm: FormGroup;
   examData:any
   uniqueLink: string = '';
+  isLoading: boolean = false;
+   errorMessage: string | null = null;
   constructor(private fb: FormBuilder ,private makequizService:MakequizService ,private router: Router,private activeModal: NgbActiveModal) {
     this.makequizForm = this.fb.group({
       title: ['', [Validators.required]],
@@ -30,32 +32,43 @@ export class MakequizComponent {
     });
   }
 
-  onSubmit() {
-    if (this.makequizForm.valid) {
-      const examData: exam = {
-        title: this.makequizForm.value.title,
-        duration: this.makequizForm.value.duration,
-        description: this.makequizForm.value.description,
-        uniqueLink: this.makequizForm.value.uniqueLink,
-      };
-  
-      const creatorId = localStorage.getItem('creatorId');
-      if (creatorId) {
-        this.makequizService.addExamForCreator(+creatorId, examData).subscribe({
-          next: () => {
-           
-            this.router.navigate(['/question']);
-          },
-          error: (err) => console.error("Erreur lors de l'ajout de l'examen", err)
-        });
-      } else {
-        console.error("creatorId manquant dans le localStorage");
+// In makequiz.component.ts
+onSubmit() {
+  if (this.makequizForm.valid) {
+    this.isLoading = true;
+    this.errorMessage = null;
+    const examData = {
+      title: this.makequizForm.value.title,
+      duration: this.makequizForm.value.duration,
+      description: this.makequizForm.value.description,
+      uniqueLink: this.uniqueLink
+    };
+
+    this.makequizService.createExam(examData).subscribe({
+      next: (createdExam) => {
+        // Navigate to question component with exam ID
+        this.router.navigate(['/questions', createdExam.id]);
+      },
+      error: (err) => {
+        this.handleError(err.message);
       }
-    } else {
-      console.error("Formulaire invalide");
-    }
+    });
   }
-  
+}
+  // Properly implement handleError
+  private handleError(error: any): void {
+    console.error('Error:', error);
+    this.isLoading = false;
+    this.errorMessage = error.error?.message || 
+                       error.message || 
+                       'An unknown error occurred';
+    
+    // Auto-hide error after 5 seconds
+    setTimeout(() => {
+      this.errorMessage = null;
+    }, 5000);
+  }
+
   cancel() {
     this.activeModal.close();
   }
@@ -67,7 +80,9 @@ export class MakequizComponent {
     for (let i = 0; i < 10; i++) {
       result += characters.charAt(Math.floor(Math.random() * charactersLength));
     }
-    this.uniqueLink = `https://examen.example.com/${result}`;
+    this.uniqueLink = `${window.location.origin}/exam/${result}`;
+    this.makequizForm.patchValue({ uniqueLink: this.uniqueLink });
   }
+
 
 }

@@ -35,7 +35,7 @@
         <label>Unique Access Link</label>
         <div class="unique-link">
           <input type="text" [value]="uniqueLink" readonly class="form-control">
-          <button type="button" class="btn">Regenerate</button>
+          <button type="button" class="btn" (click)='generateUniqueLink()'>Regenerate</button>
         </div>
       </div>
 
@@ -52,6 +52,20 @@
         <button type="button" class="cancel-quiz-btn" (click)="cancel()">
           Cancel
         </button>
+         <!-- Loading indicator -->
+  <div *ngIf="isLoading" class="loading-spinner">
+    Loading...
+  </div>
+  
+  <!-- Error message -->
+  <div *ngIf="errorMessage" class="error-message">
+    {{ errorMessage }}
+  </div>
+  
+  <button type="submit" [disabled]="isLoading">
+    <span *ngIf="!isLoading">Submit</span>
+    <span *ngIf="isLoading">Processing...</span>
+  </button>
       </div>
     </form>
   </div>

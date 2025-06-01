@@ -54,13 +54,13 @@ this.http.put<Creator>(this.backEndURL,creator).subscribe(updatedCreator=>{
 })
 
 }
-saveQuiz() {
-    const quiz = {
-      title: this.quizTitle,
-      questions: this.questionService.getQuestions()
-    };
-    console.log('Quiz saved:', quiz);
-    alert('Quiz saved!');
+saveQuiz(examId: number) {
+	const quiz = {
+	  title: this.quizTitle,
+	  questions: this.questionService.getQuestions(examId)
+	};
+	console.log('Quiz saved:', quiz);
+	alert('Quiz saved!');
   }
 }
 
