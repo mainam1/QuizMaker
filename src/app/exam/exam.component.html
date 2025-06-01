@@ -1,2 +1,157 @@
-<p>exam works</p>
 
+<!-- exam.component.html 
+<div *ngIf="loading" class="loading">Chargement de l'examen...</div>
+
+<div *ngIf="error" class="error">{{ error }}</div>
+-->
+<!-- Geolocation Section 
+<section *ngIf="currentSection === 'geolocation'" class="geolocation-section">
+  <h2>Activation de la géolocalisation</h2>
+  <p>Vous devez activer la géolocalisation pour passer cet examen.</p>
+  <button (click)="enableGeolocation()">Activer la géolocalisation</button>
+  <p *ngIf="error" class="error">{{ error }}</p>
+</sectio-->
+<!-- Exam Intro Section 
+<section *ngIf="currentSection === 'intro'" class="intro-section">
+  <h2>{{ examData?.title }}</h2>
+  <p>{{ examData?.description }}</p>
+  <p><strong>Public cible:</strong> {{ examData?.publicCible }}</p>
+  <p><strong>Nombre de questions:</strong> {{ questions.length }}</p>
+  <button (click)="startExam()">Commencer l'examen</button>
+</section>
+-->
+<!-- Question Section 
+<section *ngIf="currentSection === 'question'" class="question-section">
+  <div class="exam-header">
+    <div id="questionCounter">Question {{ currentQuestionIndex + 1 }}/{{ questions.length }}</div>
+    <div id="questionTimer">00:00</div>
+    <div id="globalTimer">{{ formatTime(globalTimeElapsed) }}</div>
+  </div>
+
+  <div class="question-content">
+    <h3>{{ questions[currentQuestionIndex]?.questionText }}</h3>
+
+    <form [formGroup]="answerForm">
+      <div *ngIf="questions[currentQuestionIndex]?.questionType === 'direct'">
+        <input type="text" formControlName="directAnswer" placeholder="Entrez votre réponse ici...">
+      </div>
+    </form>
+
+    <div *ngIf="questions[currentQuestionIndex]?.questionType === 'qcm'">
+      <ul class="qcm-options">
+        <li *ngFor="let option of questions[currentQuestionIndex]?.qcmOptions; let i = index" 
+            [class.selected]="answers[currentQuestionIndex].selectedOptions.includes(option.optionText)"
+            (click)="toggleOption(option.optionText)">
+          <input type="checkbox" [id]="'option-' + currentQuestionIndex + '-' + i" 
+                 [checked]="answers[currentQuestionIndex].selectedOptions.includes(option.optionText)"
+                 (click)="$event.stopPropagation()">
+          <label [for]="'option-' + currentQuestionIndex + '-' + i">{{ option.optionText }}</label>
+        </li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="navigation-buttons">
+    <button (click)="prevQuestion()" [disabled]="currentQuestionIndex === 0">Question précédente</button>
+    <button *ngIf="currentQuestionIndex < questions.length - 1" (click)="nextQuestion()">Question suivante</button>
+    <button *ngIf="currentQuestionIndex === questions.length - 1" (click)="submitExam()">Soumettre l'examen</button>
+  </div>
+</section>
+-->
+<!-- Results Section --><!--
+<section *ngIf="currentSection === 'results'" class="results-section">
+  <h2>Résultats de l'examen</h2>
+  <div class="score-display">
+    <p>Votre score: <span id="finalScore">{{ finalScore }}</span>/100</p>
+    <p id="scoreMessage" [style.color]="scoreMessageColor">{{ scoreMessage }}</p>
+</div>
+  <div class="exam-details">
+    <p><strong>Localisation:</strong> <span id="locationDetails">
+      {{ location ? (location.latitude.toFixed(4) + ', ' + location.longitude.toFixed(4)) : 'Non disponible' }}
+    </span></p>
+    <p><strong>Temps total:</strong> <span id="totalTime">{{ formatTime(globalTimeElapsed) }}</span></p>
+  </div>
+  <button (click)="returnHome()">Retour à l'accueil</button>
+</section>
+-->
+   <header role="banner">
+        <div class="header-content">
+            <h1>Examen en ligne</h1>
+            <div class="timer-container" role="timer" aria-live="polite">
+                <i class="fas fa-clock" aria-hidden="true"></i>
+                <span id="globalTimer" aria-label="Temps restant pour l'examen">00:00</span>
+            </div>
+        </div>
+    </header>
+    
+
+    <main role="main">
+        <!-- Geolocation Permission -->
+        <section id="geolocationSection" class="card" aria-labelledby="geolocationSectionTitle">
+            <h2 id="geolocationSectionTitle"><i class="fas fa-map-marker-alt" aria-hidden="true"></i> Localisation requise</h2>
+            <p>Pour passer cet examen, nous avons besoin de votre position géographique.</p>
+            <button id="enableGeolocationBtn" class="btn-primary" aria-label="Activer la géolocalisation">
+                <i class="fas fa-location-arrow" aria-hidden="true"></i> Autoriser la géolocalisation
+            </button>
+            <p class="error-message" id="geolocationError" aria-live="assertive"></p>
+        </section>
+
+        <!-- Exam Intro -->
+        <section id="examIntroSection" class="card hidden" aria-labelledby="examIntroSectionTitle">
+            <h2 id="examIntroSectionTitle"><i class="fas fa-book-open" aria-hidden="true"></i> Instructions</h2>
+            <div id="examDescription"></div>
+            <button id="startExamBtn" class="btn-primary" aria-label="Commencer l'examen">
+                <i class="fas fa-play" aria-hidden="true"></i> Commencer l'examen
+            </button>
+        </section>
+
+        <!-- Question Container -->
+        <section id="questionSection" class="card hidden" aria-labelledby="questionSectionTitle">
+            <div class="question-header">
+                <span id="questionCounter" aria-live="polite">Question 1/10</span>
+                <span id="questionTimer" class="timer" aria-label="Temps restant pour la question">00:30</span>
+            </div>
+            
+            <div id="questionContent" aria-live="polite">
+                <!-- Dynamically filled by JavaScript -->
+            </div>
+
+            <div class="question-navigation">
+                <button id="prevQuestionBtn" class="btn-secondary" disabled aria-label="Question précédente">
+                    <i class="fas fa-arrow-left" aria-hidden="true"></i> Précédent
+                </button>
+                <button id="nextQuestionBtn" class="btn-primary" aria-label="Question suivante">
+                    Suivant <i class="fas fa-arrow-right" aria-hidden="true"></i>
+                </button>
+                <button id="submitExamBtn" class="btn-success hidden" aria-label="Soumettre l'examen">
+                    <i class="fas fa-paper-plane" aria-hidden="true"></i> Soumettre l'examen
+                </button>
+            </div>
+        </section>
+
+        <!-- Results Section -->
+        <section id="resultsSection" class="card hidden" aria-labelledby="resultsSectionTitle">
+            <div class="results-header">
+                <i class="fas fa-trophy" aria-hidden="true"></i>
+                <h2 id="resultsSectionTitle">Résultats de l'examen</h2>
+            </div>
+            <div class="score-container">
+                <div class="score-circle">
+                    <span id="finalScore">0</span>
+                    <span>/100</span>
+                </div>
+                <p id="scoreMessage" aria-live="polite"></p>
+            </div>
+            <div class="results-details">
+                <p><i class="fas fa-map-marker-alt" aria-hidden="true"></i> Localisation enregistrée: <span id="locationDetails"></span></p>
+                <p><i class="fas fa-clock" aria-hidden="true"></i> Temps total: <span id="totalTime"></span></p>
+            </div>
+            <button id="returnHomeBtn" class="btn-primary" aria-label="Retour à l'accueil">
+                <i class="fas fa-home" aria-hidden="true"></i> Retour à l'accueil
+            </button>
+        </section>
+    </main>
+
+    <footer role="contentinfo">
+        <p>Système d'examen en ligne © 2023</p>
+    </footer>

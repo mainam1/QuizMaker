@@ -4,7 +4,7 @@ import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { CommonModule } from '@angular/common';
 import { AppComponent } from './app.component';
-import { QuestionComponent } from './question/question.component';
+
 
 @NgModule({
   declarations: [

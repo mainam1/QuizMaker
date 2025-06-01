@@ -1,4 +1,3 @@
-
 .form-container {
   max-width: 400px;
   margin: 50px auto;
@@ -74,7 +73,6 @@ h2{
   background-color:#202B31;
 color: white;
 }
-
 .btn:hover {
   background-color: #f39c12;
   color: white;
@@ -84,7 +82,6 @@ color: white;
   background-color: #BBDEF0;
   color:white ;
   }
-
  .btn-primary {
   background-color: #BBDEF0;
   color: white;

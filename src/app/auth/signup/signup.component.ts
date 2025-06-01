@@ -48,7 +48,7 @@ export class SignupComponent {
       formData.append('email', this.signupForm.get('email')?.value);
       formData.append('password', this.signupForm.get('password')?.value);
 
-      this.http.post('http://localhost:8080/api/auth/signup', formData, { responseType: 'text' })
+      this.http.post('http://localhost:8080/auth/signup', formData, { responseType: 'text' })
         .subscribe({
           next: (response) => {
             this.signupMessage = 'Signup successful!';

@@ -13,7 +13,7 @@ import { FooterComponent } from './shared/footer/footer.component';
 import { NavbarComponent } from './shared/navbar/navbar.component';
 import { QuestionComponent } from './question/question.component';
 import { ParticipantComponent } from './participant/participant.component';
-import { DashboardComponent } from './creator/dashboard/dashboard.component';
+import { DashboardComponent } from './dashboard/dashboard.component';
 export const routes: Routes = [
 
     { path: '', redirectTo: 'home', pathMatch: 'full' },
@@ -28,7 +28,7 @@ export const routes: Routes = [
   {path: 'footer', component: FooterComponent},
   {path: 'question', component: QuestionComponent},
   {path: 'participant', component: ParticipantComponent},
-  {path: 'creator/dashboard', component:DashboardComponent}
+  {path: 'dashboard', component:DashboardComponent}
 ];
 @NgModule({
  
