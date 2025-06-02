@@ -14,6 +14,7 @@ import { NavbarComponent } from './shared/navbar/navbar.component';
 import { QuestionComponent } from './question/question.component';
 import { ParticipantComponent } from './participant/participant.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
+import { ProctoringComponent } from './proctoring/proctoring.component';
 export const routes: Routes = [
 
     { path: '', redirectTo: 'home', pathMatch: 'full' },
@@ -28,7 +29,8 @@ export const routes: Routes = [
   {path: 'footer', component: FooterComponent},
   {path: 'question', component: QuestionComponent},
   {path: 'participant', component: ParticipantComponent},
-  {path: 'dashboard', component:DashboardComponent}
+  {path: 'dashboard', component:DashboardComponent},
+  {path: 'proctoring', component:ProctoringComponent}
 ];
 @NgModule({
  

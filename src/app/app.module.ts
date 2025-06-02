@@ -4,6 +4,7 @@ import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { CommonModule } from '@angular/common';
 import { AppComponent } from './app.component';
+import { WebcamModule } from 'ngx-webcam';
 
 
 @NgModule({
@@ -17,6 +18,7 @@ import { AppComponent } from './app.component';
     NgbModule,
     CommonModule,
     AppComponent,
+    WebcamModule,
   ],
   providers: [],
   bootstrap: []

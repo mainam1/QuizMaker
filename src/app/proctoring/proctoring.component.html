@@ -1,0 +1,28 @@
+<div class="proctoring-container">
+  <button (click)="isRecording ? stopRecording() : startRecording()" 
+          [class.recording]="isRecording">
+    {{ isRecording ? 'Stop Recording' : 'Start Recording' }}
+  </button>
+
+  <div *ngIf="isRecording" class="status-indicator">
+    <span class="recording-dot"></span>
+    Recording...
+  </div>
+
+  <webcam 
+    *ngIf="showWebcam"
+    [trigger]="trigger$"
+    (imageCapture)="handleImage($event)"
+    [allowCameraSwitch]="true"
+    [videoOptions]="{ width: 640, height: 480 }">
+  </webcam>
+
+  <div *ngIf="webcamImage" class="snapshot">
+    <h3>Last Capture:</h3>
+    <img [src]="webcamImage.imageAsDataUrl" alt="Webcam capture">
+  </div>
+
+  <div class="tab-warnings">
+    <p>Tab switches detected: {{ tabSwitchCount }}</p>
+  </div>
+</div>
