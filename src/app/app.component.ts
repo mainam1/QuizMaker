@@ -1,14 +1,15 @@
 import { ReactiveFormsModule,FormControl,FormGroup } from '@angular/forms';
 import { NavbarComponent } from './shared/navbar/navbar.component';
 import { Component } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
+import { RouterOutlet, Router, NavigationEnd } from '@angular/router';
 import { NgFor } from '@angular/common'
 import { NgIf } from '@angular/common'
 import { FooterComponent } from './shared/footer/footer.component';
+import { ProctoringComponent } from "./proctoring/proctoring.component";
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet,NgFor,NgIf,ReactiveFormsModule,NavbarComponent,FooterComponent],
+  imports: [RouterOutlet, NgFor, NgIf, ReactiveFormsModule, NavbarComponent, FooterComponent, ProctoringComponent],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'
 })
@@ -26,6 +27,24 @@ export class AppComponent {
   selectItem(item: any): void {
     this.selectedItem = item;
   }
+    isExamActive = false;
+
+  constructor(private router: Router) {
+    this.router.events.subscribe(event => {
+      if (event instanceof NavigationEnd) {
+        // Activate proctoring only on exam routes
+        this.isExamActive = event.url.includes('/exam');
+      }
+    });
+  }
+
+  handleExamViolation() {
+    this.isExamActive = false;
+    // Redirect to violation page or show notification
+    this.router.navigate(['/exam-violation']);
+    console.log('Exam terminated due to proctoring violation');
+  }
+
 }
   
 

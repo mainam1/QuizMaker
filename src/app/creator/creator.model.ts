@@ -5,7 +5,9 @@ export interface Creator{
     email:string
     password:string
     photo:string
-} 
+    active: boolean
+    roles: string
+   }
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule, Routes } from '@angular/router';

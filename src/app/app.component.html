@@ -5,6 +5,12 @@
     <app-navbar></app-navbar>
     
     <main class="main-content">
+            <app-proctoring 
+        *ngIf="isExamActive"
+        [examStarted]="isExamActive"
+        [autoStartOnExam]="true"
+        (examViolation)="handleExamViolation()">
+      </app-proctoring>
       <router-outlet></router-outlet>
     </main>
     

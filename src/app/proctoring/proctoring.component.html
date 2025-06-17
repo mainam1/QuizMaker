@@ -1,28 +1,58 @@
 <div class="proctoring-container">
-  <button (click)="isRecording ? stopRecording() : startRecording()" 
-          [class.recording]="isRecording">
-    {{ isRecording ? 'Stop Recording' : 'Start Recording' }}
-  </button>
+  <!-- Camera Permission Status -->
+  <div *ngIf="initializationError" class="error-message">
+    <h4>Camera Access Error</h4>
+    <p>{{ initializationError }}</p>
+    <button (click)="startRecording()" class="retry-btn">Retry Camera Access</button>
+  </div>
 
+  <!-- Recording Controls -->
+  <div class="recording-controls">
+    <button 
+      (click)="isRecording ? stopRecording() : startRecording()"
+      [class.recording]="isRecording"
+      [disabled]="examStarted && autoStartOnExam">
+      {{ isRecording ? 'Stop Recording' : 'Start Recording' }}
+    </button>
+
+    <div *ngIf="examStarted && autoStartOnExam" class="auto-mode-notice">
+      <small>Recording automatically controlled during exam</small>
+    </div>
+  </div>
+
+  <!-- Recording Status -->
   <div *ngIf="isRecording" class="status-indicator">
     <span class="recording-dot"></span>
-    Recording...
+    <span>Recording Active - {{ capturesTaken }} captures taken</span>
   </div>
 
-  <webcam 
-    *ngIf="showWebcam"
-    [trigger]="trigger$"
-    (imageCapture)="handleImage($event)"
-    [allowCameraSwitch]="true"
-    [videoOptions]="{ width: 640, height: 480 }">
-  </webcam>
-
-  <div *ngIf="webcamImage" class="snapshot">
-    <h3>Last Capture:</h3>
-    <img [src]="webcamImage.imageAsDataUrl" alt="Webcam capture">
+  <!-- Webcam Component -->
+  <div class="webcam-container">
+    <webcam 
+      *ngIf="showWebcam"
+      [trigger]="trigger$"
+      (imageCapture)="handleImage($event)"
+      [allowCameraSwitch]="true"
+      [videoOptions]="{ width: 640, height: 480, facingMode: 'user' }">
+    </webcam>
   </div>
 
-  <div class="tab-warnings">
-    <p>Tab switches detected: {{ tabSwitchCount }}</p>
+  <!-- Monitoring Statistics -->
+  <div class="monitoring-stats">
+    <div class="stat-item">
+      <span class="stat-label">Tab Switches:</span>
+      <span class="stat-value" [class.warning]="tabSwitchCount > 0">{{ tabSwitchCount }}</span>
+    </div>
   </div>
+
+  <!-- Warnings -->
+  <div *ngIf="tabSwitchCount > 0" class="warnings">
+    <h4>⚠️ Monitoring Alerts</h4>
+    <p>{{ tabSwitchCount }} tab switch(es) detected during exam</p>
+  </div>
+</div>
+<!-- Add this near the warnings section -->
+<div *ngIf="tabSwitchCount >= maxTabSwitches" class="violation-message">
+  <h4>❌ Exam Terminated</h4>
+  <p>Your exam has been terminated due to multiple tab switches detected.</p>
 </div>

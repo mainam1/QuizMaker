@@ -1,7 +1,7 @@
 import { Injectable, signal } from '@angular/core';
 import { exam } from './makequiz.model';
 import { HttpClient } from '@angular/common/http';
-import { LoginService } from '../auth/login/login.service';
+import { LoginService } from '../login/login.service';
 import { Observable } from 'rxjs';
 
 @Injectable({

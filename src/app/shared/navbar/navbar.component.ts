@@ -1,10 +1,10 @@
 import { Component } from '@angular/core';
 import { RouterLink } from '@angular/router';
-import { SignupComponent } from '../../auth/signup/signup.component';
+import { SignupComponent } from '../../signup/signup.component';
 
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import { AuthService } from '../../auth/auth.component';
-import { LoginComponent } from '../../auth/login/login.component';
+import { LoginComponent } from '../../login/login.component';
 import { NgIf } from '@angular/common';
 
 @Component({
